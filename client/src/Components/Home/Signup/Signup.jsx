@@ -11,7 +11,7 @@ export default function Signup() {
 
     if (data.status) {
       swal({
-        title: 'Good job!',
+        title: data.Message,
         // text: 'You clicked the button!',
         icon: 'success',
         button: 'Aww yiss!',
@@ -19,7 +19,7 @@ export default function Signup() {
       actions.resetForm();
     } else {
       swal({
-        title: data.error,
+        title: data.Message,
         // text: 'You clicked the button!',
         icon: 'warning',
         button: 'Ok',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
 import { clientLogin } from '../../../Axios/Service/HomeService';
 function Login() {
@@ -81,6 +81,8 @@ function Login() {
                     }}
                   />
                   <label className="form-label">Password</label>
+                  <Link to={'/forgotPassword'}> <label className="form-label" style={{ paddingLeft: '18.5rem' }}>Forgot Password ?</label></Link>
+
                 </div>
 
                 <div className="text-center text-lg-start mt-4 pt-2">

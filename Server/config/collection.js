@@ -1,5 +1,5 @@
-const CLIENT_COLLECTION = 'client';
+const USER_COLLECTION = 'user ';
 
 module.exports = {
-  CLIENT_COLLECTION,
+  USER_COLLECTION,
 };

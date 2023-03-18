@@ -7,7 +7,7 @@ export const clientRegister = async (value) => {
       },
     };
     const { data } = await axiosHomeInstance.post(
-      '/clientRegister',
+      '/userRegister',
       value,
       config
     );
@@ -24,7 +24,7 @@ export const clientLogin = async (value) => {
       },
     };
     const { data } = await axiosClientInstance.post(
-      '/clientLogin',
+      '/login',
       value,
       config
     );
