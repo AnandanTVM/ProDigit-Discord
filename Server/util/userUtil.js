@@ -136,4 +136,75 @@ module.exports = {
             .catch((err) => reject(err))
         );
     }).catch((err) => reject(err)),
+
+  getAllFriends: (UId) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        let friends = await db
+          .get()
+          .collection(collection.USER_COLLECTION)
+          .aggregate([
+            { $match: { _id: UId } },
+            { $project: { friends: 1, _id: 0 } },
+            { $unwind: "$friends" },
+            { $match: { "friends.status": "Friend" } },
+            {
+              $lookup: {
+                from: collection.USER_COLLECTION,
+                localField: "friends.fid",
+                foreignField: "_id",
+                as: "friend",
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                friend: { $arrayElemAt: ["$friend", 0] },
+                // arrayElemAt userd to convert array to object
+              },
+            },
+            { $project: { friend: { name: 1, _id: 1 } } },
+          ])
+          .toArray();
+
+        resolve(friends);
+      } catch (error) {
+        reject(error);
+      }
+    }),
+  RequesedFriends: (UId) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        let friends = await db
+          .get()
+          .collection(collection.USER_COLLECTION)
+          .aggregate([
+            { $match: { _id: UId } },
+            { $project: { friends: 1, _id: 0 } },
+            { $unwind: "$friends" },
+            { $match: { "friends.status": "Request" } },
+            {
+              $lookup: {
+                from: collection.USER_COLLECTION,
+                localField: "friends.fid",
+                foreignField: "_id",
+                as: "friend",
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                friend: { $arrayElemAt: ["$friend", 0] },
+                // arrayElemAt userd to convert array to object
+              },
+            },
+            { $project: { friend: { name: 1, _id: 1 } } },
+          ])
+          .toArray();
+
+        resolve(friends);
+      } catch (error) {
+        reject(error);
+      }
+    }),
 };

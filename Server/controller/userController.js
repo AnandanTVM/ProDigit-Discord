@@ -48,6 +48,18 @@ const acceptRequestcontro = (req, res) =>
     .then((details) => res.json({ status: true, response: details.message }))
     .catch((err) => res.json({ status: false, Message: err.message }));
 
+const getAllFriendscontro = (req, res) =>
+  userUtil
+    .getAllFriends(req.user._id)
+    .then((details) => res.json({ status: true, response: details }))
+    .catch((err) => res.json({ status: false, Message: err.message }));
+
+const RequesedFriendscontro = (req, res) =>
+  userUtil
+    .RequesedFriends(req.user._id)
+    .then((details) => res.json({ status: true, response: details }))
+    .catch((err) => res.json({ status: false, Message: err.message }));
+
 module.exports = {
   userLoginContro,
   userProfileContro,
@@ -55,4 +67,6 @@ module.exports = {
   addFriendsListcontro,
   addFriendcontro,
   acceptRequestcontro,
+  getAllFriendscontro,
+  RequesedFriendscontro
 };
