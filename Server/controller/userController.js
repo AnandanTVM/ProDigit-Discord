@@ -60,6 +60,30 @@ const RequesedFriendscontro = (req, res) =>
     .then((details) => res.json({ status: true, response: details }))
     .catch((err) => res.json({ status: false, Message: err.message }));
 
+const sendChatcontro = (req, res) =>
+  userUtil
+    .sendChat(req.user._id, req.body)
+    .then(() =>
+      res.json({ status: true, response: "Message Send Successfuly.." })
+    )
+    .catch((err) => res.json({ status: false, Message: err.message }));
+
+const getMessagecontro = (req, res) =>
+  userUtil
+    .getAllMessage(req.params.FId, req.user._id) // to , from
+    .then((responce) =>
+      res.json({
+        status: true,
+        to: responce.to,
+        from: responce.from,
+        messages: responce.message,
+      })
+    )
+    .catch((err) => {
+      console.log(err);
+      res.json({ status: false, message: err });
+    });
+
 module.exports = {
   userLoginContro,
   userProfileContro,
@@ -68,5 +92,7 @@ module.exports = {
   addFriendcontro,
   acceptRequestcontro,
   getAllFriendscontro,
-  RequesedFriendscontro
+  RequesedFriendscontro,
+  sendChatcontro,
+  getMessagecontro,
 };

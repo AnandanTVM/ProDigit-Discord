@@ -207,4 +207,116 @@ module.exports = {
         reject(error);
       }
     }),
+  sendChat: (from, data) =>
+    new Promise((resolve, reject) => {
+      const cueentDate = new Date();
+      const time = cueentDate.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      });
+      const date = new Date().toLocaleDateString();
+      const mess = {
+        message: data.message,
+        date: date,
+        time: time,
+        realtime: cueentDate,
+      };
+      // Date settings end
+      db.get()
+        .collection(collection.CHAT_COLLECTION)
+        .findOne({ to: ObjectId(data.to), from: from })
+        .then((responce) => {
+          if (responce === null) {
+            const messages = [mess];
+
+            db.get()
+              .collection(collection.CHAT_COLLECTION)
+              .insertOne({
+                to: ObjectId(data.to),
+                from: from,
+                messages: messages,
+              })
+              .then(() => resolve())
+              .catch(() => reject());
+          } else {
+            const messages = mess;
+            db.get()
+              .collection(collection.CHAT_COLLECTION)
+              .updateOne(
+                {
+                  to: ObjectId(data.to),
+                  from: from,
+                },
+                {
+                  $push: { messages: messages },
+                }
+              )
+              .then(() => resolve())
+              .catch(() => reject());
+          }
+        })
+        .catch(() => reject());
+    }),
+  getAllMessage: (to, from) =>
+    new Promise(async (resolve, reject) => {
+      try {
+
+        const response = {};
+
+        let fromMessage = await db
+          .get()
+          .collection(collection.CHAT_COLLECTION)
+          .aggregate([
+            { $match: { to: ObjectId(to), from: from } },
+            { $unwind: "$messages" },
+            { $project: { _id: 1, messages: 1 } },
+          ])
+          .toArray();
+
+        let toMessage = await db
+          .get()
+          .collection(collection.CHAT_COLLECTION)
+          .aggregate([
+            { $match: { to: from, from: ObjectId(to) } },
+            { $unwind: "$messages" },
+            { $project: { _id: 1, messages: 1 } },
+          ])
+          .toArray();
+
+        if (fromMessage.length === 0) {
+          fromMessage = false;
+        } else {
+          // eslint-disable-next-line no-underscore-dangle
+          response.from = fromMessage[0]._id;
+        }
+
+        if (toMessage.length === 0) {
+          toMessage = false;
+        } else {
+          // eslint-disable-next-line no-underscore-dangle
+          response.to = toMessage[0]._id;
+        }
+
+        if (fromMessage && toMessage) {
+          let mergedArray = fromMessage.concat(toMessage);
+          mergedArray.sort(
+            (a, b) =>
+              new Date(a.messages.realtime) - new Date(b.messages.realtime)
+          );
+          response.message = mergedArray;
+        } else if (fromMessage) {
+          response.message = fromMessage;
+        } else if (toMessage) {
+          response.message = toMessage;
+        } else {
+          response.message = false;
+        }
+
+        resolve(response);
+        
+      } catch (error) {
+        reject(error);
+      }
+    }),
 };
