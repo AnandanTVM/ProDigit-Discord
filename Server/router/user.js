@@ -11,5 +11,8 @@ router.put(
   userAuth.userProtect,
   userControllers.userEditProfilecontro
 );
+router.get("/addFriendsList", userAuth.userProtect,userControllers.addFriendsListcontro);
+router.post("/addfriend", userAuth.userProtect,userControllers.addFriendcontro);
+// router.get("/acceptRequest",userAuth.userProtect,userControllers.addFriendcontro)
 
 module.exports = router;

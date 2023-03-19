@@ -23,13 +23,29 @@ const userProfileContro = (req, res) => {
   delete user.password;
   res.json({ status: true, response: user });
 };
+
 const userEditProfilecontro = (req, res) =>
   userUtil
     .userEditProfile(req.user._id, req.body)
     .then(() => res.json({ status: true, response: "updated..." }))
     .catch((err) => res.json({ status: false, Message: err.message }));
+
+const addFriendsListcontro = (req, res) =>
+  userUtil
+    .useraddFriendsList(req.user._id)
+    .then((details) => res.json({ status: true, response: details }))
+    .catch((err) => res.json({ status: false, Message: err.message }));
+
+const addFriendcontro = (req, res) =>
+  userUtil
+    .addFriend(req.user._id, req.body.friendId)
+    .then((details) => res.json({ status: true, response: details.message }))
+    .catch((err) => res.json({ status: false, Message: err.message }));
+
 module.exports = {
   userLoginContro,
   userProfileContro,
   userEditProfilecontro,
+  addFriendsListcontro,
+  addFriendcontro,
 };

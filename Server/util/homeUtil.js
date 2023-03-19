@@ -11,6 +11,7 @@ module.exports = {
         email: details.email,
         phone: details.phone,
         block: false,
+        friends: [],
       };
       db.get()
         .collection(collection.USER_COLLECTION)
