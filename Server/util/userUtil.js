@@ -115,4 +115,25 @@ module.exports = {
             .catch((err) => reject(err))
         );
     }).catch((err) => reject(err)),
+
+  acceptRequest: (UId, FId) =>
+    new Promise((resolve, reject) => {
+      db.get()
+        .collection(collection.USER_COLLECTION)
+        .updateOne(
+          { _id: UId, "friends.fid": ObjectId(FId) },
+          { $set: { "friends.$.status": "Friend" } }
+        )
+        .then(() =>
+          db
+            .get()
+            .collection(collection.USER_COLLECTION)
+            .updateOne(
+              { _id: ObjectId(FId), "friends.fid": UId },
+              { $set: { "friends.$.status": "Friend" } }
+            )
+            .then(() => resolve({ message: "successfull" }))
+            .catch((err) => reject(err))
+        );
+    }).catch((err) => reject(err)),
 };

@@ -42,10 +42,17 @@ const addFriendcontro = (req, res) =>
     .then((details) => res.json({ status: true, response: details.message }))
     .catch((err) => res.json({ status: false, Message: err.message }));
 
+const acceptRequestcontro = (req, res) =>
+  userUtil
+    .acceptRequest(req.user._id, req.params.FId)
+    .then((details) => res.json({ status: true, response: details.message }))
+    .catch((err) => res.json({ status: false, Message: err.message }));
+
 module.exports = {
   userLoginContro,
   userProfileContro,
   userEditProfilecontro,
   addFriendsListcontro,
   addFriendcontro,
+  acceptRequestcontro,
 };

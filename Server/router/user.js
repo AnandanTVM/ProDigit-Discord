@@ -13,6 +13,6 @@ router.put(
 );
 router.get("/addFriendsList", userAuth.userProtect,userControllers.addFriendsListcontro);
 router.post("/addfriend", userAuth.userProtect,userControllers.addFriendcontro);
-// router.get("/acceptRequest",userAuth.userProtect,userControllers.addFriendcontro)
+router.get("/acceptRequest/:FId",userAuth.userProtect,userControllers.acceptRequestcontro)
 
 module.exports = router;
