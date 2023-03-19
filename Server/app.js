@@ -7,7 +7,7 @@ const cors = require('cors');
 const db = require("./config/connection");
 const homeRouter = require("./router/home");
 const userRouter = require("./router/user");
-const adminRouter = require("./router/admin");
+
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 // .env config
 dotenv.config();
@@ -24,7 +24,7 @@ app.use(express.json());
 // routs
 app.use("/api", homeRouter);
 app.use("/api/user", userRouter);
-app.use("/api/admin", adminRouter);
+
 
 app.use(errorHandler);
 app.use(notFound);
