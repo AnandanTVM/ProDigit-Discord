@@ -1,5 +1,5 @@
 import React from 'react'
-import { FPass, HomeNav } from '../../Components/Home'
+import { FPass, HomeNav } from '../../Components'
 
 function ForgotPassword() {
     return (

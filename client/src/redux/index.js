@@ -1,6 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import clientReducers from "./clientReducers";
+import adminReducer from "./adminReducer";
+
 export default combineReducers({
-  client: clientReducers,
+  admin: adminReducer,
 });

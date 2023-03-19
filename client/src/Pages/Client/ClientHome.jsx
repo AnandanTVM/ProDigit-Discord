@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import jwt from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { ClientLoginInfo } from "../../redux/adminReducer";
+import { ClientNav } from "../../Components";
 function ClientHome() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function ClientHome() {
       navigate("/login");
     }
   }, [dispatch, navigate]);
-  return <div>ClientHome</div>;
+  return <div><ClientNav home /></div>;
 }
 
 export default ClientHome;

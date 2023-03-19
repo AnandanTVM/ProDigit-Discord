@@ -19,7 +19,7 @@ module.exports = {
               .then((status) => {
                 if (status) {
                   response.userId = user._id;
-                  response.username = user.firstName;
+                  response.username = user.name;
                   response.email = user.email;
                   resolve(response);
                 } else {

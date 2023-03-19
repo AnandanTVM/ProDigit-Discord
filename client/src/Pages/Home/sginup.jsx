@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomeNav, Signup } from '../../Components/Home';
+import { HomeNav, Signup } from '../../Components';
 
 function sginup() {
   return (
