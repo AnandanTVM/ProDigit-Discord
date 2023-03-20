@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const INITIAL_STATE = {
   clientDetails: "",
+  selecteduserdetails: "",
 };
 
 const singupSlice = createSlice({
@@ -21,9 +22,15 @@ const singupSlice = createSlice({
 
       return { ...state, clientDetails };
     },
+    getChatUserDetails: (state, action) => {
+      let { selecteduserdetails } = state;
+      selecteduserdetails = action.payload;
+      return { ...state, selecteduserdetails };
+    },
   },
 });
 
-export const { ClientLoginInfo, clearClientLoginDetails } = singupSlice.actions;
+export const { ClientLoginInfo, getChatUserDetails, clearClientLoginDetails } =
+  singupSlice.actions;
 //reducer export to a store
 export default singupSlice.reducer;

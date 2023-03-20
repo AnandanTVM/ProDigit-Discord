@@ -49,7 +49,7 @@ export const RequesedFriends = async (token) => {
     return error;
   }
 };
-export const AcceptRequest = async (token,FId) => {
+export const AcceptRequest = async (token, FId) => {
   try {
     const config = {
       headers: {
@@ -58,7 +58,62 @@ export const AcceptRequest = async (token,FId) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosClientInstance.get(`/acceptRequest/${FId}`, config);
+    const { data } = await axiosClientInstance.get(
+      `/acceptRequest/${FId}`,
+      config
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const GetAllFriends = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosClientInstance.get("/getAllFriends", config);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const GetAllChat = async (token, FId) => {
+  try {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosClientInstance.get(
+      `/getAllMessage/${FId}`,
+      config
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const sendChatMessage = async (token, value) => {
+  try {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosClientInstance.post(
+      "/sendChat",
+      value,
+      config
+    );
     return data;
   } catch (error) {
     return error;

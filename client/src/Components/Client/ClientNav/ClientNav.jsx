@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { clearClientLoginDetails } from '../../../redux/adminReducer';
+import { clearClientLoginDetails, getChatUserDetails } from '../../../redux/adminReducer';
 function ClientNav(props) {
   const navigate = useNavigate('');
   const dispatch = useDispatch();
@@ -10,6 +10,7 @@ function ClientNav(props) {
     localStorage.removeItem('token');
     localStorage.removeItem('clientrDetails');
     dispatch(clearClientLoginDetails());
+    dispatch(getChatUserDetails(false));
     navigate('/');
   };
 

@@ -19,6 +19,7 @@ module.exports = {
     // take userId and sockectId from user
     socket.on("addUser", (userId) => {
       addUser(userId, socket.id);
+      console.log(users);
       socket.emit("getUsers", users);
     });
 
