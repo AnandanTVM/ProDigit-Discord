@@ -24,7 +24,41 @@ export const AddFrirnd = async (token, FId) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosClientInstance.post("/addfriend", vlaue, config);
+    const { data } = await axiosClientInstance.post(
+      "/addfriend",
+      vlaue,
+      config
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const RequesedFriends = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosClientInstance.get("/RequesedFriends", config);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const AcceptRequest = async (token,FId) => {
+  try {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosClientInstance.get(`/acceptRequest/${FId}`, config);
     return data;
   } catch (error) {
     return error;

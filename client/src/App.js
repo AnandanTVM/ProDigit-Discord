@@ -7,6 +7,7 @@ import {
   ForgotPassword,
   Home,
   HomeSignup,
+  InviteFriend,
 } from "./Pages";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/client/home" element={<ClientHome />} />
         <Route path="/client/addFriend" element={<AddFriend />} />
+        <Route path="/client/invite" element={<InviteFriend />} />
       </Routes>
     </div>
   );

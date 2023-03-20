@@ -1,44 +1,45 @@
 import React, { useEffect, useState } from 'react'
-import { AddFrirnd, AddFrirndList } from '../../../Axios/Service/UserServices';
+import { AcceptRequest, RequesedFriends } from '../../../Axios/Service/UserServices';
 
-import './AddFriends.css'
-function AddFriends() {
-    const [friend, SetFriends] = useState(false);
-
-    async function getalldetails() {
+function Invite() {
+    const [request, SetRequest] = useState('')
+    async function getdetails() {
         const token = localStorage.getItem("token");
-        const data = await AddFrirndList(token);
-        if (data.response.length === 0) {
-            SetFriends(false)
+        const details = await RequesedFriends(token);
+        console.log(details)
+        if (details.response.length === 0) {
+            SetRequest(false)
         } else {
-            SetFriends(data.response);
+            SetRequest(details.response);
         }
+
     }
     async function AddFriend(FId) {
-
         const token = localStorage.getItem("token");
-        const add = await AddFrirnd(token, FId);
+        const add = await AcceptRequest(token, FId);
+        console.log(add)
         if (add.status) {
-            getalldetails();
+            getdetails();
         }
 
     }
-    useEffect(() => {
-        getalldetails();
-    }, [])
 
+    useEffect(() => {
+        getdetails();
+    }, [])
     return (
         <div>
+
             <div className="container row mt-3 ms-5">
                 <h1>
-                    Add Friends
+                    Friends Invites
                 </h1>
             </div>
-            {friend ? (
+            {request ? (
                 <div className="container">
                     <div className="row mt-5">
 
-                        {friend.map((friendDetails, index) => {
+                        {request.map((friendDetails, index) => {
                             return (
                                 <div className="col-md-6 col-xl-4">
                                     <div className="card">
@@ -47,7 +48,7 @@ function AddFriends() {
                                                 <div className="card-body">
                                                     <div className="media align-items-center"><span style={{ backgroundImage: "url(https://bootdey.com/img/Content/avatar/avatar6.png)" }} className="avatar avatar-xl mr-3"></span>
                                                         <div className="media-body overflow-hidden">
-                                                            <h5 className="card-text mb-0">{friendDetails?.name}</h5>
+                                                            <h5 className="card-text mb-0">{friendDetails?.friend.name}</h5>
 
                                                         </div>
                                                     </div>
@@ -59,7 +60,11 @@ function AddFriends() {
                                                 <div className="card-body">
                                                     <div className="media align-items-center">  <br />
                                                         <div className="media-body overflow-hidden">
-                                                            <button className="btn btn-primary center pull-right" onClick={((e) => { AddFriend(friendDetails?._id) })}>Add Friend</button>
+                                                            <button className="btn btn-primary center pull-right"
+                                                                onClick={
+                                                                    ((e) => { AddFriend(friendDetails?.friend._id) })
+                                                                }
+                                                            >Accept</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -79,7 +84,9 @@ function AddFriends() {
                     </center>
 
                 </div>)}
-        </div>)
+
+        </div>
+    )
 }
 
-export default AddFriends
+export default Invite
