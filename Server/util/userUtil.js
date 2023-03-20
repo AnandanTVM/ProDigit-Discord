@@ -174,6 +174,7 @@ module.exports = {
     }),
   RequesedFriends: (UId) =>
     new Promise(async (resolve, reject) => {
+      
       try {
         let friends = await db
           .get()
@@ -352,4 +353,25 @@ module.exports = {
         reject(error);
       }
     }),
+  rejectFriends: (UId, FId) =>
+    new Promise((resolve, reject) => {
+      console.log("here");
+      db.get()
+        .collection(collection.USER_COLLECTION)
+        .updateOne(
+          { _id: UId, "friends.fid": ObjectId(FId) },
+          { $set: { "friends.$.status": "Rejected" } }
+        )
+        .then(() =>
+          db
+            .get()
+            .collection(collection.USER_COLLECTION)
+            .updateOne(
+              { _id: ObjectId(FId), "friends.fid": UId },
+              { $set: { "friends.$.status": "Rejected" } }
+            )
+            .then(() => resolve({ message: "successfull Rejected" }))
+            .catch((err) => reject(err))
+        );
+    }).catch((err) => reject(err)),
 };

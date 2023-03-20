@@ -20,11 +20,11 @@ const userLoginContro = (req, res) =>
     });
 const userProfileContro = (req, res) => {
   let user = req.user;
-  let details={
-    name:user.name,
-    email:user.email,
-    phone:user.phone
-  }
+  let details = {
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+  };
   res.json({ status: true, response: details });
 };
 
@@ -61,6 +61,12 @@ const getAllFriendscontro = (req, res) =>
 const RequesedFriendscontro = (req, res) =>
   userUtil
     .RequesedFriends(req.user._id)
+    .then((details) => res.json({ status: true, response: details }))
+    .catch((err) => res.json({ status: false, Message: err.message }));
+
+const rejectcontro = (req, res) =>
+  userUtil
+    .rejectFriends(req.user._id, req.params.FId)
     .then((details) => res.json({ status: true, response: details }))
     .catch((err) => res.json({ status: false, Message: err.message }));
 
@@ -105,5 +111,6 @@ module.exports = {
   RequesedFriendscontro,
   sendChatcontro,
   getMessagecontro,
-  PendingFriendscontro
+  PendingFriendscontro,
+  rejectcontro,
 };

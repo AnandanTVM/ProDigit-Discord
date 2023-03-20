@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AcceptRequest, RequesedFriends } from '../../../Axios/Service/UserServices';
+import { AcceptRequest, RejectRequest, RequesedFriends } from '../../../Axios/Service/UserServices';
 
 function Invite() {
     const [request, SetRequest] = useState('')
@@ -19,6 +19,16 @@ function Invite() {
         const add = await AcceptRequest(token, FId);
         console.log(add)
         if (add.status) {
+            getdetails();
+        }
+
+    }
+
+    async function RejectFriend(FId) {
+        const token = localStorage.getItem("token");
+        const Reject = await RejectRequest(token, FId);
+        console.log(Reject)
+        if (Reject.status) {
             getdetails();
         }
 
@@ -65,6 +75,13 @@ function Invite() {
                                                                     ((e) => { AddFriend(friendDetails?.friend._id) })
                                                                 }
                                                             >Accept</button>
+                                                        </div>
+                                                        <div className="media-body overflow-hidden mt-2">
+                                                            <button className="btn btn-danger center pull-right"
+                                                                onClick={
+                                                                    ((e) => { RejectFriend(friendDetails?.friend._id) })
+                                                                }
+                                                            >Reject</button>
                                                         </div>
                                                     </div>
                                                 </div>

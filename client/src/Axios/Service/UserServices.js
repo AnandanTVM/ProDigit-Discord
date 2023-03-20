@@ -163,9 +163,25 @@ export const UpdateProfile = async (token, values) => {
         "Content-Type": "application/json",
       },
     };
+    const { data } = await axiosClientInstance.put("/edit", values, config);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const RejectRequest = async (token, FId) => {
+  try {
+    let value = {};
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
     const { data } = await axiosClientInstance.put(
-      '/edit',
-      values,
+      `/reject/${FId}`,
+      value,
       config
     );
     return data;

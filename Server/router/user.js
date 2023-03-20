@@ -47,5 +47,6 @@ router.get(
   userAuth.userProtect,
   userControllers.getMessagecontro
 );
+router.put("/reject/:FId", userAuth.userProtect, userControllers.rejectcontro);
 
 module.exports = router;
