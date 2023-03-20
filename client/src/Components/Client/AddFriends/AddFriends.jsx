@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { AddFrirndList } from '../../../Axios/Service/UserServices';
+import { AddFrirnd, AddFrirndList } from '../../../Axios/Service/UserServices';
 
 import './AddFriends.css'
 function AddFriends() {
     const [friend, SetFriends] = useState(false);
+
     async function getalldetails() {
         const token = localStorage.getItem("token");
         const data = await AddFrirndList(token);
@@ -14,8 +15,13 @@ function AddFriends() {
         }
     }
     async function AddFriend(FId) {
-        console.log(FId)
-        
+
+        const token = localStorage.getItem("token");
+        const add = await AddFrirnd(token, FId);
+        console.log(add)
+        if (add.status) {
+            getalldetails();
+        }
 
     }
     useEffect(() => {
