@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt from "jwt-decode";
 
-import { ClientNav, Invites } from "../../Components";
+import { ClientNav, Invites, Penging } from "../../Components";
 
 function InviteFriend() {
     const navigate = useNavigate();
@@ -26,6 +26,8 @@ function InviteFriend() {
     return (
         <div>
             <ClientNav invite />
+
+            <Penging />
             <Invites />
         </div>
     )

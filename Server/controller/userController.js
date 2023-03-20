@@ -60,6 +60,12 @@ const RequesedFriendscontro = (req, res) =>
     .then((details) => res.json({ status: true, response: details }))
     .catch((err) => res.json({ status: false, Message: err.message }));
 
+const PendingFriendscontro = (req, res) =>
+  userUtil
+    .PendingFriends(req.user._id)
+    .then((details) => res.json({ status: true, response: details }))
+    .catch((err) => res.json({ status: false, Message: err.message }));
+
 const sendChatcontro = (req, res) =>
   userUtil
     .sendChat(req.user._id, req.body)
@@ -95,4 +101,5 @@ module.exports = {
   RequesedFriendscontro,
   sendChatcontro,
   getMessagecontro,
+  PendingFriendscontro
 };

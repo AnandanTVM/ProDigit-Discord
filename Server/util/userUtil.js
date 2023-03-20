@@ -207,6 +207,41 @@ module.exports = {
         reject(error);
       }
     }),
+  PendingFriends: (UId) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        let friends = await db
+          .get()
+          .collection(collection.USER_COLLECTION)
+          .aggregate([
+            { $match: { _id: UId } },
+            { $project: { friends: 1, _id: 0 } },
+            { $unwind: "$friends" },
+            { $match: { "friends.status": "Pending" } },
+            {
+              $lookup: {
+                from: collection.USER_COLLECTION,
+                localField: "friends.fid",
+                foreignField: "_id",
+                as: "friend",
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                friend: { $arrayElemAt: ["$friend", 0] },
+                // arrayElemAt userd to convert array to object
+              },
+            },
+            { $project: { friend: { name: 1, _id: 1 } } },
+          ])
+          .toArray();
+
+        resolve(friends);
+      } catch (error) {
+        reject(error);
+      }
+    }),
   sendChat: (from, data) =>
     new Promise((resolve, reject) => {
       const cueentDate = new Date();
@@ -261,7 +296,6 @@ module.exports = {
   getAllMessage: (to, from) =>
     new Promise(async (resolve, reject) => {
       try {
-
         const response = {};
 
         let fromMessage = await db
@@ -314,7 +348,6 @@ module.exports = {
         }
 
         resolve(response);
-        
       } catch (error) {
         reject(error);
       }

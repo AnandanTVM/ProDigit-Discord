@@ -6,3 +6,4 @@ export { default as ClientNav } from "./Client/ClientNav/ClientNav";
 export { default as Chat } from "./Client/Chat/Chatmain";
 export { default as AFriends } from "./Client/AddFriends/AddFriends";
 export { default as Invites } from "./Client/Invite/Invite";
+export { default as Penging } from "./Client/PendingFriendRequest/PendingFriendRequest";

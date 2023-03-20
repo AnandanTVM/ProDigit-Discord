@@ -116,7 +116,7 @@ function ChatArea() {
                     </div>
 
                     <div class="position-relative">
-                        <div class="chat-messages p-4">
+                        <div class="chat-messages p-4 ">
                             {chat ? (
                                 chat.map((data, index) => {
                                     if (data._id === chatDataFrom) {

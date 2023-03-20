@@ -49,6 +49,21 @@ export const RequesedFriends = async (token) => {
     return error;
   }
 };
+export const PendingFriends = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosClientInstance.get("/pendingFriends", config);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
 export const AcceptRequest = async (token, FId) => {
   try {
     const config = {

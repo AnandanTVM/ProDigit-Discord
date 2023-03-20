@@ -36,6 +36,11 @@ router.get(
   userAuth.userProtect,
   userControllers.RequesedFriendscontro
 );
+router.get(
+  "/pendingFriends",
+  userAuth.userProtect,
+  userControllers.PendingFriendscontro
+);
 router.post("/sendChat", userAuth.userProtect, userControllers.sendChatcontro);
 router.get(
   "/getAllMessage/:FId",
