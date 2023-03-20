@@ -4,7 +4,7 @@ import { GetProfile } from '../../../Axios/Service/UserServices';
 import './Profile.css'
 function Profile() {
     const [profile, SetProfile] = useState('')
-    async function get(params) {
+    async function get() {
         const token = localStorage.getItem("token");
         const data = await GetProfile(token)
         SetProfile(data.response)
@@ -25,7 +25,7 @@ function Profile() {
                             <p class="text-muted mb-1">{profile.phone}</p>
                             <p class="text-muted mb-4">{profile.email}</p>
                             <div class="d-flex justify-content-center mb-2">
-                                <button type="button" class="btn btn-primary">Edit</button>
+                                <Link to={'/client/editProfile'} type="button" class="btn btn-primary" >Edit</Link>
                                 <Link to={'/client/home'} type="button" class="btn btn-outline-primary ms-1">Message</Link>
                             </div>
                         </div>

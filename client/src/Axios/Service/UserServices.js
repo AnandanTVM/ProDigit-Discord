@@ -154,3 +154,22 @@ export const GetProfile = async (token) => {
     return error;
   }
 };
+export const UpdateProfile = async (token, values) => {
+  try {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosClientInstance.put(
+      '/edit',
+      values,
+      config
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

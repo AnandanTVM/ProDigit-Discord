@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import {
   AddFriend,
   ClientHome,
+  EditProfile,
   ForgotPassword,
   Home,
   HomeSignup,
@@ -31,6 +32,7 @@ function App() {
         <Route path="/client/addFriend" element={<AddFriend />} />
         <Route path="/client/invite" element={<InviteFriend />} />
         <Route path="/client/profile" element={<Profile />} />
+        <Route path="/client/EditProfile" element={<EditProfile />} />
       </Routes>
     </div>
   );
