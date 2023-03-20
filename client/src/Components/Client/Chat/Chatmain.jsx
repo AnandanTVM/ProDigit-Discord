@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GetAllFriends } from '../../../Axios/Service/UserServices'
 import ChatArea from './ChatArea'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getChatUserDetails } from '../../../redux/adminReducer';
+import io from 'socket.io-client';
+
 import './Chatmain.css'
+
+const ENDPOINT = "http://localhost:3001";
+
 function Chatmain() {
 	const dispatch = useDispatch();
+	const { clientDetails } = useSelector((state) => state.admin);
 	const [friendsList, SetFriendsList] = useState('')
 	async function getAll() {
 		const token = localStorage.getItem("token");
@@ -19,6 +25,13 @@ function Chatmain() {
 		}
 
 	}
+	const socket = useRef();
+	useEffect(() => {
+		socket.current = io(ENDPOINT);
+		socket.current.on('getUsers', (users) => {
+			console.log(users);
+		});
+	}, [clientDetails.userId]);
 	useEffect(() => {
 		getAll()
 	}, [])
@@ -52,7 +65,7 @@ function Chatmain() {
 													<img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40" />
 													<div class="flex-grow-1 ml-3">
 														{friend.friend.name}
-														<div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
+														<div class="small"><span class="fas fa-circle chat-online"></span> </div>
 													</div>
 												</div>
 											</Link>

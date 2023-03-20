@@ -25,6 +25,7 @@ module.exports = {
 
     // send and get message
     socket.on("sendMessage", ({ senderId, receverId, text }) => {
+      console.log(text);
       const user = getUser(receverId);
       if (user) {
         socket.to(user.socketId).emit("getMessage", {

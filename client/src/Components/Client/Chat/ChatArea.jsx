@@ -10,6 +10,7 @@ function ChatArea() {
     const [chatDataFrom, setChatDataFrom] = useState('');
     const [chat, setChat] = useState('');
     const [message, setMessage] = useState('');
+    const [online, setOnline] = useState(false);
     const [arrvelmessage, setArrvelMessage] = useState(null);
     const socket = useRef();
     const scrollRef = useRef();
@@ -17,7 +18,7 @@ function ChatArea() {
         const token = localStorage.getItem("token");
 
         const data = await GetAllChat(token, selecteduserdetails._id);
-        console.log(data)
+
         if (data.messages) {
             setChatDataFrom(data.from);
             setChat(data.messages);
@@ -44,9 +45,26 @@ function ChatArea() {
 
         setMessage('');
     }
-    // socket io
     useEffect(() => {
         socket.current = io(ENDPOINT);
+        socket.current.emit('addUser', clientDetails.userId);
+
+
+        socket.current.on('getUsers', (users) => {
+            console.log(users)
+            console.log(selecteduserdetails._id)
+            
+            const selectedUserId = selecteduserdetails._id;
+            const selectedUser = users.find(user => user.userId === selectedUserId);
+            const isOnline = selectedUser ? true : false;
+            setOnline(isOnline);
+
+            console.log(online);
+        });
+    }, [clientDetails.userId, online, selecteduserdetails._id]);
+    // socket io
+    useEffect(() => {
+
         socket.current.on('getMessage', (data) => {
             console.log('on dtat');
             console.log(data);
@@ -58,20 +76,15 @@ function ChatArea() {
                 },
             });
         });
-    }, []);
+    }, [socket]);
 
     useEffect(() => {
         arrvelmessage && setChat((prev) => [...prev, arrvelmessage]);
-        console.log(chat);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [arrvelmessage]);
 
-    useEffect(() => {
-        socket.current.emit('addUser', clientDetails.userId);
-        socket.current.on('getUsers', (users) => {
-            console.log(users);
-        });
-    }, [clientDetails.userId]);
+
 
     useEffect(() => {
         getallChats()
@@ -92,7 +105,7 @@ function ChatArea() {
                             </div>
                             <div class="flex-grow-1 pl-3">
                                 <strong>{selecteduserdetails?.name}</strong>
-                                <div class="text-muted small"><em>Typing...</em></div>
+                                <div class="text-muted small"><em>{online ? "Online" : "Ofline"}</em></div>
                             </div>
                             <div>
                                 {/* <button class="btn btn-primary btn-lg mr-1 px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone feather-lg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></button>

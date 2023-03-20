@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import io from "socket.io-client";
 import {
   AddFriend,
   ClientHome,
@@ -9,8 +10,16 @@ import {
   HomeSignup,
   InviteFriend,
 } from "./Pages";
+import "./App.css";
 
+const ENDPOINT = "http://localhost:3001";
 function App() {
+  const socket = useRef();
+  const { clientDetails } = useSelector((state) => state.admin);
+  useEffect(() => {
+    socket.current = io(ENDPOINT);
+    socket.current.emit("addUser", clientDetails.userId);
+  }, [clientDetails.userId]);
   return (
     <div className="App">
       <Routes>
