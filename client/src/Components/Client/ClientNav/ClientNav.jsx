@@ -29,9 +29,9 @@ function ClientNav(props) {
                 <Link className="nav-link " aria-current="page" to={'/client/home'}>Home</Link>
               </li>)}
               {props.add ? (<li className="nav-item">
-                <Link className="nav-link active" to={'/client/home'}>Add Friend</Link>
+                <Link className="nav-link active" to={'/client/addFriend'}>Add Friend</Link>
               </li>) : (<li className="nav-item">
-                <Link className="nav-link" to={'/client/home'}>Add Friend</Link>
+                <Link className="nav-link" to={'/client/addFriend'}>Add Friend</Link>
               </li>)}
               <li className="nav-item">
                 <Link className="nav-link" to={'/client/home'}>Invites</Link>

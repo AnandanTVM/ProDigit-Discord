@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 //password rule
-const passwordRule = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+// const passwordRule = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 export const userSchema = yup.object().shape({
   name: yup
     .string()
