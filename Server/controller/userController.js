@@ -20,8 +20,12 @@ const userLoginContro = (req, res) =>
     });
 const userProfileContro = (req, res) => {
   let user = req.user;
-  delete user.password;
-  res.json({ status: true, response: user });
+  let details={
+    name:user.name,
+    email:user.email,
+    phone:user.phone
+  }
+  res.json({ status: true, response: details });
 };
 
 const userEditProfilecontro = (req, res) =>

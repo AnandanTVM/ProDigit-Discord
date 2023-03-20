@@ -123,7 +123,7 @@ function ChatArea() {
                                         return (
                                             <div class="chat-message-right pb-4">
                                                 <div>
-                                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40" />
+                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40" />
                                                     <div class="text-muted small text-nowrap mt-2">
                                                         {data.messages.time}
                                                     </div>

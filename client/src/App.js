@@ -9,6 +9,7 @@ import {
   Home,
   HomeSignup,
   InviteFriend,
+  Profile,
 } from "./Pages";
 import "./App.css";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/client/home" element={<ClientHome />} />
         <Route path="/client/addFriend" element={<AddFriend />} />
         <Route path="/client/invite" element={<InviteFriend />} />
+        <Route path="/client/profile" element={<Profile />} />
       </Routes>
     </div>
   );

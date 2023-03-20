@@ -42,9 +42,11 @@ function ClientNav(props) {
               </li>) : (<li className="nav-item">
                 <Link className="nav-link" to={'/client/invite'}>Invites</Link>
               </li>)}
-              <li className="nav-item">
-                <Link className="nav-link" to={'/client/home'}> {userName ? userName : 'Profile'}</Link>
-              </li>
+              {props.profile ? (<li className="nav-item">
+                <Link className="nav-link active" to={'/client/profile'}> {userName ? userName : 'Profile'}</Link>
+              </li>):( <li className="nav-item">
+                <Link className="nav-link" to={'/client/profile'}> {userName ? userName : 'Profile'}</Link>
+              </li>)}
 
 
             </ul>

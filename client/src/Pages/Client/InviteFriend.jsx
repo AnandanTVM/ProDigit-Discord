@@ -20,7 +20,7 @@ function InviteFriend() {
                 // populateQuote()
             }
         } else {
-            navigate("/login");
+            navigate("/");
         }
     }, [navigate]);
     return (

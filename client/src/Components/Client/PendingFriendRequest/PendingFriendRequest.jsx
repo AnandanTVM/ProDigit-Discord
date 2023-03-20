@@ -24,7 +24,7 @@ function PendingFriendRequest() {
                 {request ? (<>
                     <div className="container row mt-3 ms-5">
                         <h1>
-                            Friends Invites
+                             Pending Friends
                         </h1>
                     </div>
 

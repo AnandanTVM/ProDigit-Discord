@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt from "jwt-decode";
+import { ClientNav, ClientProfile } from '../../Components'
 
-import { AFriends, ClientNav } from "../../Components";
-function AddFriends() {
+function Profile() {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,11 +24,10 @@ function AddFriends() {
     }, [navigate]);
     return (
         <div>
-            <ClientNav add />
-            <AFriends />
-
+            <ClientNav profile />
+            <ClientProfile />
         </div>
     )
 }
 
-export default AddFriends
+export default Profile

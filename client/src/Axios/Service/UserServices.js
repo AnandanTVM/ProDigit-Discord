@@ -1,4 +1,5 @@
 import { axiosClientInstance } from "../axios";
+
 export const AddFrirndList = async (token) => {
   try {
     const config = {
@@ -14,6 +15,7 @@ export const AddFrirndList = async (token) => {
     return error;
   }
 };
+
 export const AddFrirnd = async (token, FId) => {
   try {
     let vlaue = { friendId: FId };
@@ -34,6 +36,7 @@ export const AddFrirnd = async (token, FId) => {
     return error;
   }
 };
+
 export const RequesedFriends = async (token) => {
   try {
     const config = {
@@ -49,6 +52,7 @@ export const RequesedFriends = async (token) => {
     return error;
   }
 };
+
 export const PendingFriends = async (token) => {
   try {
     const config = {
@@ -64,6 +68,7 @@ export const PendingFriends = async (token) => {
     return error;
   }
 };
+
 export const AcceptRequest = async (token, FId) => {
   try {
     const config = {
@@ -82,6 +87,7 @@ export const AcceptRequest = async (token, FId) => {
     return error;
   }
 };
+
 export const GetAllFriends = async (token) => {
   try {
     const config = {
@@ -97,6 +103,7 @@ export const GetAllFriends = async (token) => {
     return error;
   }
 };
+
 export const GetAllChat = async (token, FId) => {
   try {
     const config = {
@@ -115,6 +122,7 @@ export const GetAllChat = async (token, FId) => {
     return error;
   }
 };
+
 export const sendChatMessage = async (token, value) => {
   try {
     const config = {
@@ -124,11 +132,23 @@ export const sendChatMessage = async (token, value) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosClientInstance.post(
-      "/sendChat",
-      value,
-      config
-    );
+    const { data } = await axiosClientInstance.post("/sendChat", value, config);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const GetProfile = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosClientInstance.get("/profile", config);
     return data;
   } catch (error) {
     return error;

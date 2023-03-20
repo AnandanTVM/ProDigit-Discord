@@ -20,7 +20,7 @@ function ClientHome() {
         // populateQuote()
       }
     } else {
-      navigate("/login");
+      navigate("/");
     }
   }, [dispatch, navigate]);
   return <div>
